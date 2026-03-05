@@ -14,20 +14,20 @@ const instrumentSans = Instrument_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'AI Quick Tools',
-  description: 'Simple, fast AI tools for everyday tasks.',
+  title: 'Ferramentas IA',
+  description: 'Ferramentas de IA simples e rápidas para tarefas do dia a dia.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="pt-BR" className="dark">
       <body className={`${geistMono.variable} ${instrumentSans.variable} bg-zinc-950 text-zinc-100 antialiased`}>
         <header className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-mono text-sm font-semibold text-amber-400 hover:text-amber-300 transition-colors tracking-tight">
-            AI Quick Tools
+            Ferramentas IA
           </Link>
           <a
-            href="https://github.com"
+            href="https://github.com/cintracomunicacao/ai-quick-tools"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-mono text-zinc-500 hover:text-zinc-300 transition-colors"

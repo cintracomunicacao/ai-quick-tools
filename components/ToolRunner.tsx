@@ -36,7 +36,7 @@ export function ToolRunner({ tool }: { tool: Tool }) {
 
       if (!res.ok) {
         const err = await res.json()
-        setError(err.error || 'Something went wrong.')
+        setError(err.error || 'Algo deu errado. Tente novamente.')
         setLoading(false)
         return
       }
@@ -70,7 +70,7 @@ export function ToolRunner({ tool }: { tool: Tool }) {
       }
     } catch (err: unknown) {
       if (err instanceof Error && err.name !== 'AbortError') {
-        setError('Request failed. Check your connection.')
+        setError('Falha na requisição. Verifique sua conexão.')
       }
     } finally {
       setLoading(false)
@@ -89,9 +89,10 @@ export function ToolRunner({ tool }: { tool: Tool }) {
     setTimeout(() => setCopied(false), 1500)
   }
 
+  const submitLabel = tool.submitLabel || 'Gerar'
+
   return (
     <div className="space-y-4">
-      {/* Input */}
       <div>
         <label className="block text-xs font-mono text-zinc-400 mb-2 uppercase tracking-widest">
           {tool.inputLabel}
@@ -106,7 +107,6 @@ export function ToolRunner({ tool }: { tool: Tool }) {
         />
       </div>
 
-      {/* Options */}
       {tool.options && tool.options.length > 0 && (
         <div className="flex flex-wrap gap-4">
           {tool.options.map((opt) => (
@@ -134,13 +134,12 @@ export function ToolRunner({ tool }: { tool: Tool }) {
         </div>
       )}
 
-      {/* Submit */}
       <button
         onClick={run}
         disabled={!input.trim() || loading}
         className="px-6 py-2 bg-amber-500 text-black text-sm font-mono font-semibold hover:bg-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
       >
-        {loading ? 'Running...' : 'Run'}
+        {loading ? 'Gerando...' : submitLabel}
         {!loading && (
           <span className="ml-2 text-xs opacity-60">
             {typeof navigator !== 'undefined' && /Mac/.test(navigator.platform) ? '⌘' : 'Ctrl'}+↵
@@ -148,24 +147,22 @@ export function ToolRunner({ tool }: { tool: Tool }) {
         )}
       </button>
 
-      {/* Error */}
       {error && (
         <div className="border border-red-800 bg-red-950 text-red-400 text-sm font-mono p-4">
           {error}
         </div>
       )}
 
-      {/* Output */}
       {(output || loading) && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-xs font-mono text-zinc-400 uppercase tracking-widest">Output</label>
+            <label className="text-xs font-mono text-zinc-400 uppercase tracking-widest">Resultado</label>
             {output && (
               <button
                 onClick={copyOutput}
                 className="text-xs font-mono text-zinc-500 hover:text-amber-400 transition-colors"
               >
-                {copied ? '✓ Copied' : 'Copy'}
+                {copied ? '✓ Copiado' : 'Copiar'}
               </button>
             )}
           </div>
@@ -174,7 +171,7 @@ export function ToolRunner({ tool }: { tool: Tool }) {
               tool.outputMode === 'code' ? 'font-mono text-emerald-400' : 'text-zinc-100'
             }`}
           >
-            {output || <span className="text-zinc-600 font-mono text-xs animate-pulse">Thinking...</span>}
+            {output || <span className="text-zinc-600 font-mono text-xs animate-pulse">Pensando...</span>}
           </div>
         </div>
       )}

@@ -11,9 +11,9 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const tool = getToolBySlug(slug)
-  if (!tool) return { title: 'Not Found' }
+  if (!tool) return { title: 'Não encontrado' }
   return {
-    title: `${tool.name} — AI Quick Tools`,
+    title: `${tool.name} — Ferramentas IA`,
     description: tool.description,
   }
 }
@@ -25,16 +25,14 @@ export default async function ToolPage({ params }: Props) {
 
   return (
     <div className="px-6 py-8 max-w-3xl mx-auto">
-      {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-xs font-mono text-zinc-600 mb-6">
         <Link href="/" className="hover:text-amber-400 transition-colors">
-          Tools
+          Início
         </Link>
         <span>/</span>
         <span className="text-zinc-400">{tool.name}</span>
       </div>
 
-      {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
           <span className="text-2xl">{tool.icon}</span>
